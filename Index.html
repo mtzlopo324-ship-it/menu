@@ -1,0 +1,1864 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Daisuke Karaoke | Menú</title>
+
+  <style>
+    :root{
+      --bg:#050507;
+      --stroke:rgba(255,255,255,.07);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.62);
+
+      --accent:#8f5bff;
+      --accent2:#3a4bff;
+      --price:#00e0ff;
+
+      --headerH:64px;
+      --safeB: env(safe-area-inset-bottom, 0px);
+      --safeT: env(safe-area-inset-top, 0px);
+
+      /* ===== MODERN LUXURY FONT STACK (OFFLINE) ===== */
+      --fontBody:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      --fontEditorial: ui-sans-serif,-apple-system,BlinkMacSystemFont,
+                       "SF Pro Display","SF Pro Text",
+                       "Segoe UI Variable Display","Segoe UI",
+                       Roboto,Helvetica,Arial,sans-serif;
+
+      /* ===== DAY THEME VARS (DEFAULT) ===== */
+      --dayGlow1: rgba(143,91,255,.06);
+      --dayGlow2: rgba(58,75,255,.06);
+      --dayLineA: rgba(58,75,255,.85);
+      --dayLineB: rgba(58,75,255,.10);
+      --dayLineShadow: rgba(58,75,255,.22);
+      --dayCardGlow1: rgba(143,91,255,.09);
+      --dayCardGlow2: rgba(58,75,255,.07);
+    }
+
+    /* ===== DAY THEMES ===== */
+    /* 0 Domingo: Family Sundays (cálido + sobrio) */
+    body.day-0{
+      --dayGlow1: rgba(255,215,120,.06);
+      --dayGlow2: rgba(143,91,255,.05);
+      --dayLineA: rgba(255,215,120,.65);
+      --dayLineB: rgba(143,91,255,.10);
+      --dayLineShadow: rgba(255,215,120,.18);
+      --dayCardGlow1: rgba(255,215,120,.06);
+      --dayCardGlow2: rgba(143,91,255,.07);
+    }
+    /* 1 Lunes: Blue Monday */
+    body.day-1{
+      --dayGlow1: rgba(58,75,255,.10);
+      --dayGlow2: rgba(0,224,255,.07);
+      --dayLineA: rgba(0,224,255,.70);
+      --dayLineB: rgba(58,75,255,.12);
+      --dayLineShadow: rgba(0,224,255,.18);
+      --dayCardGlow1: rgba(58,75,255,.08);
+      --dayCardGlow2: rgba(0,224,255,.06);
+    }
+    /* 2 Martes: Mucho Rollo */
+    body.day-2{
+      --dayGlow1: rgba(143,91,255,.10);
+      --dayGlow2: rgba(255,77,125,.06);
+      --dayLineA: rgba(255,77,125,.55);
+      --dayLineB: rgba(143,91,255,.12);
+      --dayLineShadow: rgba(255,77,125,.16);
+      --dayCardGlow1: rgba(143,91,255,.09);
+      --dayCardGlow2: rgba(255,77,125,.06);
+    }
+    /* 3 Miércoles: Ladies Night */
+    body.day-3{
+      --dayGlow1: rgba(255,77,125,.08);
+      --dayGlow2: rgba(143,91,255,.08);
+      --dayLineA: rgba(255,77,125,.55);
+      --dayLineB: rgba(58,75,255,.10);
+      --dayLineShadow: rgba(255,77,125,.14);
+      --dayCardGlow1: rgba(255,77,125,.06);
+      --dayCardGlow2: rgba(143,91,255,.07);
+    }
+    /* 4 Jueves: Nomikai After Office */
+    body.day-4{
+      --dayGlow1: rgba(58,75,255,.09);
+      --dayGlow2: rgba(143,91,255,.05);
+      --dayLineA: rgba(58,75,255,.75);
+      --dayLineB: rgba(143,91,255,.10);
+      --dayLineShadow: rgba(58,75,255,.18);
+      --dayCardGlow1: rgba(58,75,255,.08);
+      --dayCardGlow2: rgba(143,91,255,.05);
+    }
+    /* 5 Viernes: default (sin promo) */
+    body.day-5{ }
+    /* 6 Sábado: default (sin promo) */
+    body.day-6{ }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family:var(--fontBody);
+    }
+    html,body{height:100%;}
+    body{
+      background:
+        radial-gradient(900px 600px at 15% 10%, var(--dayGlow1), transparent 60%),
+        radial-gradient(800px 500px at 85% 35%, var(--dayGlow2), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      overflow:hidden;
+    }
+    .hidden{display:none !important;}
+
+    /* Header */
+    header{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:calc(var(--headerH) + var(--safeT));
+      padding:calc(14px + var(--safeT)) 18px 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      z-index:60;
+      backdrop-filter: blur(14px);
+      background:rgba(0,0,0,.72);
+      border-bottom:1px solid var(--stroke);
+    }
+    .brand{
+  display:flex;
+  flex-direction:column;
+  line-height:1;
+}
+
+.brand__main{
+  font-weight:600;
+  font-size:20px;
+  letter-spacing:1px;
+  margin:0;
+}
+
+.brand__jp{
+  font-size:11px;
+  letter-spacing:2px;
+  opacity:.5;
+  margin top:-2px;
+}
+      
+    }
+    .back-btn{
+      border:none;
+      background:transparent;
+      color:rgba(255,255,255,.78);
+      font-size:14px;
+      cursor:pointer;
+      padding:8px 10px;
+      border-radius:10px;
+      transition:.2s;
+    }
+    .back-btn:hover{background:rgba(255,255,255,.06);}
+    .back-btn:active{transform:scale(.98); background:rgba(255,255,255,.08);}
+
+    /* Screens */
+    .screen{
+      position:fixed;
+      inset:0;
+      padding-top:calc(var(--headerH) + var(--safeT));
+      padding-bottom:calc(92px + var(--safeB));
+      overflow-y:auto;
+      -webkit-overflow-scrolling:touch;
+      transform:translateX(110%);
+      opacity:0;
+      transition:transform .35s ease, opacity .25s ease;
+      will-change:transform, opacity;
+    }
+    .screen--active{transform:translateX(0); opacity:1;}
+    .screen--center{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .container{padding:20px 18px 0 18px;}
+
+    /* Titles */
+    .section-head{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin:12px 0 24px;
+    }
+    .section-title{
+      font-family:var(--fontEditorial);
+      font-size:40px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:2.4px;
+      color:#fff;
+      line-height:1.05;
+    }
+    /* ✅ Header line now reacts to day theme */
+    .section-head::after{
+      content:"";
+      height:2px;
+      flex:1;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--dayLineA), var(--dayLineB));
+      box-shadow:0 0 12px var(--dayLineShadow);
+      opacity:.9;
+    }
+    .section-sub{
+      margin-top:10px;
+      font-size:12px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.50);
+    }
+
+    /* Hero */
+    .hero{
+      width:min(560px, 92vw);
+      padding:26px 18px 18px;
+      position:relative;
+    }
+    .hero__glow{
+      position:absolute;
+      inset:-10px;
+      background:
+        radial-gradient(220px 220px at 50% 15%, rgba(143,91,255,.16), transparent 62%),
+        radial-gradient(260px 260px at 55% 55%, rgba(58,75,255,.10), transparent 66%);
+      filter: blur(14px);
+      opacity:.75;
+      z-index:-1;
+    }
+    .hero__title{
+      font-family:var(--fontEditorial);
+      font-size:30px;
+      font-weight:1000;
+      letter-spacing:2.6px;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      line-height:1.05;
+    }
+    .hero__sub{
+      font-size:14px;
+      color:rgba(255,255,255,.62);
+      margin-bottom:22px;
+      letter-spacing:1.1px;
+      text-transform:uppercase;
+    }
+    .hero__hint{margin-top:14px; font-size:12px; color:rgba(255,255,255,.55); letter-spacing:.3px;}
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:14px 22px;
+      font-size:14px;
+      font-weight:1000;
+      letter-spacing:.6px;
+      transition:.2s;
+      text-transform:uppercase;
+      color:white;
+      background:linear-gradient(90deg, rgba(143,91,255,.9), rgba(58,75,255,.9));
+      box-shadow:0 0 16px rgba(143,91,255,.18);
+    }
+    .btn:active{transform:scale(.98);}
+
+    /* Promo */
+    .promoWrap{margin:0 0 14px 0;}
+    .promoCard{
+      border-radius:18px;
+      padding:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.012));
+      position:relative;
+      overflow:hidden;
+    }
+    .promoCard::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(260px 160px at 18% 20%, rgba(58,75,255,.12), transparent 62%),
+        radial-gradient(260px 180px at 85% 30%, rgba(143,91,255,.10), transparent 64%);
+      filter:blur(14px);
+      opacity:.70;
+    }
+    .promoCard > *{position:relative; z-index:1;}
+    .promoTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .promoTag{
+      font-size:12px;
+      letter-spacing:1.1px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    .promoDay{
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.55);
+    }
+    .promoTitle{
+      margin-top:10px;
+      font-family:var(--fontEditorial);
+      font-size:18px;
+      font-weight:1000;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+    .promoText{
+      margin-top:8px;
+      font-size:13px;
+      line-height:1.45;
+      color:rgba(255,255,255,.68);
+    }
+    .promoActions{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .promoBtn{
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:12px;
+      font-weight:1000;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      color:white;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .promoBtn:active{transform:scale(.99);}
+
+    /* Home cards */
+    .grid{display:grid; grid-template-columns:1fr; gap:14px;}
+    .card{
+      width:100%;
+      text-align:left;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:18px;
+      padding:20px;
+      cursor:pointer;
+      transition:.25s;
+      color:var(--text);
+      position:relative;
+      overflow:hidden;
+    }
+    /* ✅ Card glow now reacts to day theme */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(260px 140px at 20% 10%, var(--dayCardGlow1), transparent 62%),
+        radial-gradient(260px 160px at 90% 40%, var(--dayCardGlow2), transparent 64%);
+      opacity:.65;
+      z-index:0;
+      filter:blur(16px);
+    }
+    .card > *{position:relative; z-index:1;}
+    .card:hover{
+      border-color:rgba(58,75,255,.32);
+      box-shadow:0 0 14px rgba(58,75,255,.08);
+      transform:translateY(-2px);
+    }
+    .card:active{transform:translateY(0) scale(.99);}
+    .card__title{
+      font-size:16px;
+      font-weight:1000;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+    }
+    .card__meta{margin-top:6px; font-size:13px; color:rgba(255,255,255,.64);}
+    .card--karaoke{border-color:rgba(255,77,125,.18);}
+    .card--karaoke:hover{border-color:rgba(255,77,125,.40); box-shadow:0 0 18px rgba(255,77,125,.12);}
+
+    /* Categories */
+    .list{display:flex; flex-direction:column; gap:12px;}
+    .list-item{
+      width:100%;
+      text-align:left;
+      background:rgba(17,17,24,.78);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px;
+      padding:16px;
+      cursor:pointer;
+      transition:.2s;
+      color:var(--text);
+      position:relative;
+      overflow:hidden;
+    }
+    .list-item::after{
+      content:"";
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:120px;
+      height:120px;
+      background:radial-gradient(circle at center, rgba(58,75,255,.13), transparent 66%);
+      filter:blur(12px);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .list-item:hover{border-color:rgba(58,75,255,.28); box-shadow:0 0 16px rgba(58,75,255,.10);}
+    .list-item:active{transform:scale(.99);}
+    .list-item__title{
+      font-size:15px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
+    .list-item__meta{
+      margin-top:6px;
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.4px;
+    }
+
+    /* Sticky tools (crumb + search + compact) */
+    .toolsSticky{
+      position:sticky;
+      top:0;
+      z-index:10;
+      margin:-6px 0 14px 0;
+      padding:10px 0 10px 0;
+      background:linear-gradient(180deg, rgba(5,5,7,.92), rgba(5,5,7,.70));
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .crumb{
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.55);
+      margin-bottom:10px;
+      user-select:none;
+    }
+    .searchBar{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:10px 12px;
+    }
+    .searchIcon{display:inline-flex; width:18px; height:18px; color:rgba(255,255,255,.62);}
+    .searchInput{
+      flex:1;
+      border:none;
+      outline:none;
+      background:transparent;
+      color:#fff;
+      font-size:14px;
+    }
+    .searchInput::placeholder{color:rgba(255,255,255,.42);}
+    .searchClear{
+      border:none;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      width:28px;
+      height:28px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+    .searchClear:active{transform:scale(.98);}
+
+    .toggleRow{margin-top:10px; display:flex; justify-content:flex-start;}
+    .toggleBtn{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:1000;
+      letter-spacing:.35px;
+      text-transform:uppercase;
+      font-size:12px;
+      cursor:pointer;
+    }
+    .toggleBtn[aria-pressed="true"]{
+      border-color:rgba(58,75,255,.30);
+      box-shadow:0 0 14px rgba(58,75,255,.10);
+    }
+
+    /* Products */
+    .hr-note{margin:10px 0 10px; font-size:12px; color:rgba(255,255,255,.62); letter-spacing:.2px;}
+
+    .product{
+      padding:18px 0;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      cursor:pointer;
+      border-radius:14px;
+      transition:.18s;
+    }
+    .product:active{transform:scale(.995); background:rgba(255,255,255,.02);}
+    .product-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .product-left{
+      display:flex;
+      gap:12px;
+      min-width:0;
+      flex:1;
+    }
+    .thumb{
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(143,91,255,.06), rgba(58,75,255,.03));
+      overflow:hidden;
+      flex:0 0 auto;
+      position:relative;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .product-text{min-width:0;}
+    .product-name{
+      font-size:16px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      word-break:break-word;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      line-height:1.15;
+    }
+    .product-desc{
+      margin-top:7px;
+      font-size:13px;
+      color:rgba(255,255,255,.62);
+      line-height:1.4;
+      word-break:break-word;
+    }
+    .product-price{
+      color:var(--price);
+      font-weight:1000;
+      white-space:nowrap;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+
+    /* Compact view */
+    .compact .product{padding:14px 0;}
+    .compact .product-desc{display:none;}
+    .compact .thumb{width:44px; height:44px; border-radius:12px;}
+    .compact .product-name{font-size:15px;}
+    .compact .product-price{font-size:13px;}
+
+    /* Best seller star */
+    .star{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:18px; height:18px;
+      border-radius:999px;
+      background:rgba(255,215,120,.08);
+      border:1px solid rgba(255,215,120,.20);
+      box-shadow:0 0 12px rgba(255,215,120,.06);
+      flex:0 0 auto;
+    }
+    .star svg{width:12px; height:12px; color:rgba(255,215,120,.95);}
+
+    .badge{
+      display:inline-block;
+      margin-top:14px;
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      color:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.03);
+      letter-spacing:.2px;
+    }
+
+    /* Legal */
+    .legal{
+      margin:18px 0 22px;
+      font-size:11px;
+      letter-spacing:.3px;
+      color:rgba(255,255,255,.45);
+      line-height:1.4;
+    }
+
+    /* Floating WhatsApp */
+    .floating{
+      position:fixed;
+      bottom:calc(18px + var(--safeB));
+      right:18px;
+      z-index:70;
+      cursor:pointer;
+      border-radius:999px;
+      padding:14px 16px;
+      font-size:13px;
+      font-weight:1000;
+      color:white;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition:.2s;
+      user-select:none;
+      -webkit-user-select:none;
+      background:linear-gradient(180deg, rgba(37,211,102,.95), rgba(18,140,126,.95));
+      box-shadow:0 0 18px rgba(37,211,102,.20);
+    }
+    .floating:active{transform:scale(.98);}
+    .wa-icon{display:inline-flex; width:22px; height:22px; color:#fff;}
+    .wa-text{text-transform:uppercase; letter-spacing:.35px; white-space:nowrap;}
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:90;
+      background:rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding:18px 14px calc(18px + var(--safeB));
+    }
+    .modal.hidden{display:none !important;}
+
+    .sheet{
+      width:min(640px, 100%);
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(17,17,24,.94), rgba(10,10,14,.95));
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(0,0,0,.55);
+      transform:translateY(18px);
+      opacity:0;
+      animation:sheetIn .22s ease forwards;
+    }
+    @keyframes sheetIn{
+      to{transform:translateY(0); opacity:1;}
+    }
+    .sheetTop{
+      position:relative;
+      height:190px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      background:
+        radial-gradient(520px 220px at 20% 20%, rgba(143,91,255,.14), transparent 62%),
+        radial-gradient(520px 220px at 80% 30%, rgba(58,75,255,.11), transparent 64%);
+    }
+    .sheetTop img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.92;
+    }
+    .sheetClose{
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .sheetClose:active{transform:scale(.98);}
+
+    .sheetBody{padding:18px 16px 16px;}
+    .sheetTitleRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .sheetName{
+      font-size:18px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      line-height:1.15;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .sheetPrice{
+      color:var(--price);
+      font-weight:1000;
+      white-space:nowrap;
+      font-size:15px;
+      margin-top:2px;
+    }
+    .sheetDivider{
+      margin:16px 0 12px;
+      height:1px;
+      background:linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    }
+    .sheetDesc{
+      margin-top:2px;
+      color:rgba(255,255,255,.70);
+      font-size:13px;
+      line-height:1.55;
+    }
+    .sheetBadges{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:rgba(255,255,255,.80);
+      font-size:12px;
+      letter-spacing:.2px;
+      user-select:none;
+    }
+    .chip--best{
+      border-color:rgba(255,215,120,.20);
+      background:rgba(255,215,120,.08);
+    }
+    .chip--best svg{width:14px;height:14px;color:rgba(255,215,120,.95);}
+
+    .sheetActions{
+      padding:12px 16px 16px;
+      display:flex;
+      gap:10px;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+    .btnGhost{
+      flex:1;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:#fff;
+      padding:12px 12px;
+      font-weight:900;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .btnGhost:active{transform:scale(.99);}
+    .btnWA{
+      flex:1.2;
+      border-radius:14px;
+      border:none;
+      background:linear-gradient(180deg, rgba(37,211,102,.95), rgba(18,140,126,.95));
+      color:#fff;
+      padding:12px 12px;
+      font-weight:1000;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+    }
+    .btnWA:active{transform:scale(.99);}
+
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:calc(18px + var(--safeB));
+      transform:translateX(-50%);
+      z-index:95;
+      background:rgba(0,0,0,.65);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      color:#fff;
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:12px;
+      letter-spacing:.2px;
+      max-width:min(520px, 92vw);
+      opacity:0;
+      transition:opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-2px);
+    }
+
+    /* Fade */
+    .fade-in{animation:fadeInUp .38s ease both;}
+    @keyframes fadeInUp{
+      from{opacity:0; transform:translateY(8px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    @media (max-width: 360px){
+      .section-title{letter-spacing:1.8px;}
+      .hero__title{letter-spacing:2px;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .screen{transition:none;}
+      .card,.btn,.list-item,.floating,.product{transition:none;}
+      .fade-in{animation:none;}
+      .sheet{animation:none; opacity:1; transform:none;}
+      .toast{transition:none;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+  <span class="brand__main">daisuke</span>
+  <span class="brand__jp">カラオケ</span>
+</div>
+    <button class="back-btn hidden" id="backBtn" type="button">← Regresar</button>
+  </header>
+
+  <!-- HERO -->
+  <main id="hero" class="screen screen--center screen--active">
+    <div class="hero fade-in">
+      <div class="hero__glow"></div>
+      <h1 class="hero__title">Private Karaoke Suites</h1>
+      <p class="hero__sub">Contemporary Asian Inspired Kitchen</p>
+      <button class="btn" id="enterBtn" type="button">Entrar al menú</button>
+      <div class="hero__hint">メトロポリタンセンター</div>
+    </div>
+  </main>
+
+  <!-- APP -->
+  <main id="app" class="hidden">
+    <!-- HOME -->
+    <section id="screenHome" class="screen screen--active">
+      <div class="container fade-in">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Menú</div>
+            <div class="section-sub">Selecciona una sección</div>
+          </div>
+        </div>
+
+        <!-- PROMO DEL DÍA -->
+        <div id="promoWrap" class="promoWrap"></div>
+
+        <div class="grid">
+          <button class="card" id="btnFood" type="button">
+            <div class="card__title">Alimentos</div>
+            <div class="card__meta">Entradas • Kaiseki • Rollos • Ramen • Postres</div>
+          </button>
+
+          <button class="card" id="btnDrinks" type="button">
+            <div class="card__title">Bebidas</div>
+            <div class="card__meta">Destilados • Cócteles • Vinos • Cervezas</div>
+          </button>
+
+          <button class="card card--karaoke" id="btnKaraoke" type="button">
+            <div class="card__title">Reservar sala karaoke</div>
+            <div class="card__meta">$250 MXN por persona • 2 horas</div>
+          </button>
+        </div>
+
+        <div class="legal">
+          Precios en MXN. Incluyen IVA. Sujeto a cambios sin previo aviso. Imágenes ilustrativas.
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section id="screenCategories" class="screen">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-title" id="categoriesTitle">Categorías</div>
+            <div class="section-sub" id="categoriesSub">Explora</div>
+          </div>
+        </div>
+
+        <div id="categoriesList" class="fade-in"></div>
+
+        <div class="legal">
+          Precios en MXN. Incluyen IVA. Sujeto a cambios sin previo aviso.
+        </div>
+      </div>
+    </section>
+
+    <!-- ITEMS -->
+    <section id="screenItems" class="screen">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-title" id="itemsTitle">Sección</div>
+            <div class="section-sub" id="itemsSub">Detalles</div>
+          </div>
+        </div>
+
+        <!-- Sticky tools -->
+        <div class="toolsSticky" id="toolsSticky">
+          <div class="crumb" id="crumb"></div>
+
+          <div class="searchBar">
+            <span class="searchIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 18a8 8 0 1 1 5.293-14.01A8 8 0 0 1 10 18Zm11 3-6.1-6.1a9.5 9.5 0 1 0-1.06 1.06L20 22l1-1Z"/>
+              </svg>
+            </span>
+            <input id="searchInput" class="searchInput" type="search" inputmode="search" placeholder="Buscar en esta sección…" autocomplete="off" />
+            <button id="searchClear" class="searchClear hidden" type="button" aria-label="Limpiar búsqueda">✕</button>
+          </div>
+
+          <div class="toggleRow">
+            <button id="viewToggle" class="toggleBtn" type="button" aria-pressed="false">
+              Vista compacta
+            </button>
+          </div>
+        </div>
+
+        <div id="itemsList" class="fade-in"></div>
+
+        <div class="legal">
+          Precios en MXN. Incluyen IVA. Sujeto a cambios sin previo aviso. Imágenes ilustrativas.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- WhatsApp CTA -->
+  <a class="floating hidden" id="waBtn"
+     href="https://wa.me/528117464340?text=Hola%20Daisuke%20Karaoke,%20quiero%20reservar%20una%20sala."
+     target="_blank" rel="noopener">
+    <span class="wa-icon" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.11 17.36c-.29-.14-1.7-.84-1.96-.94-.26-.1-.45-.14-.64.14-.19.29-.74.94-.91 1.14-.17.19-.33.22-.62.08-.29-.14-1.21-.45-2.31-1.43-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.59.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.55-.87-2.12-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43 0 1.43 1.03 2.81 1.17 3 .14.19 2.03 3.1 4.91 4.35.69.3 1.22.48 1.64.61.69.22 1.31.19 1.8.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33zM16.02 3.2c-6.99 0-12.68 5.69-12.68 12.68 0 2.23.58 4.41 1.69 6.34L3.2 28.8l6.78-1.78c1.86 1.02 3.96 1.56 6.04 1.56 6.99 0 12.68-5.69 12.68-12.68S23.01 3.2 16.02 3.2zm0 23.04c-1.91 0-3.79-.51-5.43-1.47l-.39-.23-4.02 1.06 1.07-3.92-.26-.4a10.8 10.8 0 0 1-1.66-5.82c0-5.96 4.85-10.81 10.81-10.81S26.83 9.5 26.83 15.46 21.98 26.24 16.02 26.24z"/>
+      </svg>
+    </span>
+    <span class="wa-text">Reserva aquí</span>
+  </a>
+
+  <!-- MODAL -->
+  <div class="modal hidden" id="modal">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Detalle del platillo">
+      <div class="sheetTop" id="modalTop">
+        <button class="sheetClose" id="modalClose" type="button" aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="sheetBody">
+        <div class="sheetTitleRow">
+          <div class="sheetName" id="modalName"></div>
+          <div class="sheetPrice" id="modalPrice"></div>
+        </div>
+        <div class="sheetDivider"></div>
+        <div class="sheetDesc" id="modalDesc"></div>
+        <div class="sheetBadges" id="modalBadges"></div>
+      </div>
+
+      <div class="sheetActions">
+        <button class="btnGhost" id="modalBack" type="button">Seguir viendo</button>
+        <a class="btnWA" id="modalWA" href="#" target="_blank" rel="noopener">Reservar</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* =========================
+      DAISUKE KARAOKE - MENU APP
+      Offline, mobile-first, no libs
+      Nivel 2: Tap item -> Modal detalle
+      + Promos por día (sin promo Vie/Sáb)
+      + Day theme (glow + header line)
+      + Search (lupa) por sección
+      + Compact view
+      + Haptics + microfeedback (toast)
+    ========================= */
+
+    const WA_NUMBER = "528117464340";
+    const WA_TEXT_DEFAULT = "Hola Daisuke Karaoke, quiero reservar una sala.";
+    const STATS_KEY = "daisuke_menu_stats_v1";
+    const UI_KEY = "daisuke_menu_ui_v1";
+
+    function normalize(s){
+      return String(s || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    function escapeHTML(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function track(eventName, payload){
+      try{
+        const stats = JSON.parse(localStorage.getItem(STATS_KEY) || "{}");
+        const day = new Date().toISOString().slice(0,10);
+        stats[day] = stats[day] || { events: {} };
+        const key = eventName + (payload && payload.key ? `:${payload.key}` : "");
+        stats[day].events[key] = (stats[day].events[key] || 0) + 1;
+        localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+      }catch(e){}
+    }
+
+    /* Haptics */
+    function haptic(kind="tap"){
+      try{
+        if(!navigator.vibrate) return;
+        if(kind === "light") navigator.vibrate(8);
+        else if(kind === "soft") navigator.vibrate([6, 10, 6]);
+        else navigator.vibrate(10);
+      }catch(e){}
+    }
+
+    /* Toast microfeedback */
+    let toastTimer = null;
+    function showToast(message){
+      if(!toast) return;
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+      void toast.offsetWidth;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.classList.add("hidden"), 180);
+      }, 1300);
+    }
+
+    function setWhatsAppLink(message){
+      const txt = encodeURIComponent(message || WA_TEXT_DEFAULT);
+      waBtn.href = `https://wa.me/${WA_NUMBER}?text=${txt}`;
+    }
+
+    function starIconHTML(){
+      return `
+        <span class="star" title="Más pedido" aria-label="Más pedido">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 17.3l-6.18 3.65 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.46 4.68 1.64 7.03z"></path>
+          </svg>
+        </span>
+      `;
+    }
+
+    /* SOLO estos con estrella */
+    const BEST_SELLERS = new Set([
+      normalize("Camarones roca"),
+      normalize("Omakase sushi"),
+      normalize("Katana roll"),
+      normalize("Daisuke ramen"),
+      normalize("Hamachi trufado"),
+      normalize("Gyu sando"),
+      normalize("Cheesecake matcha dubai"),
+      normalize("Cheese cake matcha dubai")
+    ]);
+    function isBestSeller(name){ return BEST_SELLERS.has(normalize(name)); }
+
+    /* ===== PROMOS POR DÍA (ACTUALIZADO DAISUKE) =====
+       0=Dom,1=Lun,2=Mar,3=Mié,4=Jue,5=Vie,6=Sáb
+       Viernes y sábado sin promos (no se muestra tarjeta).
+    */
+    const PROMOS_BY_DAY = {
+      0: {
+        title: "Family Sundays",
+        text: "Menores de 13 no pagan acceso. Botana de cortesía. Todo el día.",
+        cta: "Reservar",
+        ctaAction: "wa"
+      },
+      1: {
+        title: "Blue Monday",
+        text: "Mixología 2x1. Todo el día.",
+        cta: "Ver bebidas",
+        ctaAction: "openDrinks"
+      },
+      2: {
+        title: "Mucho Rollo",
+        text: "Sushi 2x1. Todo el día.",
+        cta: "Ver alimentos",
+        ctaAction: "openFoods"
+      },
+      3: {
+        title: "Ladies Night",
+        text: "Mixología 2x1. 6:00 PM – 12:00 AM.",
+        cta: "Ver bebidas",
+        ctaAction: "openDrinks"
+      },
+      4: {
+        title: "Nomikai -- After Office",
+        text: "Cerveza 2x1 + Tragos dobles. 7:00 PM – 12:00 AM.",
+        cta: "Reservar",
+        ctaAction: "wa"
+      }
+      // 5 (Viernes) y 6 (Sábado) sin promo intencionalmente
+    };
+
+    function getTodayPromo(){
+      const now = new Date();
+      const day = now.getDay();
+      const promo = PROMOS_BY_DAY[day];
+
+      // Si no hay promo ese día (viernes o sábado), no mostrar nada
+      if(!promo) return null;
+
+      const dayNames = [
+        "Domingo","Lunes","Martes",
+        "Miércoles","Jueves","Viernes","Sábado"
+      ];
+
+      return {
+        ...promo,
+        dayLabel: dayNames[day]
+      };
+    }
+
+    /* ===== DAY THEME ===== */
+    function applyDayTheme(){
+      const day = new Date().getDay(); // 0..6
+      document.body.classList.remove("day-0","day-1","day-2","day-3","day-4","day-5","day-6");
+      document.body.classList.add(`day-${day}`);
+    }
+
+    /* ===== DOM ===== */
+    const hero = document.getElementById("hero");
+    const app = document.getElementById("app");
+
+    const backBtn = document.getElementById("backBtn");
+    const enterBtn = document.getElementById("enterBtn");
+
+    const screenHome = document.getElementById("screenHome");
+    const screenCategories = document.getElementById("screenCategories");
+    const screenItems = document.getElementById("screenItems");
+
+    const categoriesTitle = document.getElementById("categoriesTitle");
+    const categoriesSub = document.getElementById("categoriesSub");
+    const categoriesList = document.getElementById("categoriesList");
+
+    const itemsTitle = document.getElementById("itemsTitle");
+    const itemsSub = document.getElementById("itemsSub");
+    const itemsList = document.getElementById("itemsList");
+
+    const btnFood = document.getElementById("btnFood");
+    const btnDrinks = document.getElementById("btnDrinks");
+    const btnKaraoke = document.getElementById("btnKaraoke");
+    const waBtn = document.getElementById("waBtn");
+
+    const promoWrap = document.getElementById("promoWrap");
+
+    const crumb = document.getElementById("crumb");
+    const searchInput = document.getElementById("searchInput");
+    const searchClear = document.getElementById("searchClear");
+    const viewToggle = document.getElementById("viewToggle");
+
+    const modal = document.getElementById("modal");
+    const modalClose = document.getElementById("modalClose");
+    const modalBack = document.getElementById("modalBack");
+    const modalTop = document.getElementById("modalTop");
+    const modalName = document.getElementById("modalName");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalBadges = document.getElementById("modalBadges");
+    const modalWA = document.getElementById("modalWA");
+
+    const toast = document.getElementById("toast");
+
+    const SCREENS = { home: screenHome, categories: screenCategories, items: screenItems };
+    let navStack = [];
+    let currentMode = null;
+    let currentCategoryKey = null;
+    let currentTitle = null;
+
+    function setActiveScreen(name){
+      Object.values(SCREENS).forEach(s => s.classList.remove("screen--active"));
+      SCREENS[name].classList.add("screen--active");
+      try{ SCREENS[name].scrollTo({ top:0, left:0, behavior:"auto" }); }
+      catch(e){ SCREENS[name].scrollTop = 0; }
+    }
+
+    function pushScreen(name, state){
+      navStack.push({ name, state });
+      backBtn.classList.toggle("hidden", navStack.length <= 1);
+      setActiveScreen(name);
+    }
+
+    function popScreen(){
+      if(navStack.length <= 1) return;
+      navStack.pop();
+      backBtn.classList.toggle("hidden", navStack.length <= 1);
+      const top = navStack[navStack.length - 1];
+      setActiveScreen(top.name);
+
+      if(top.name === "categories") renderCategories(top.state.mode);
+      if(top.name === "items") renderItems(top.state.mode, top.state.categoryKey, top.state.title);
+    }
+
+    /* ===== UI STATE ===== */
+    function loadUIState(){
+      try{ return JSON.parse(localStorage.getItem(UI_KEY) || "{}"); }
+      catch(e){ return {}; }
+    }
+    function saveUIState(next){
+      try{ localStorage.setItem(UI_KEY, JSON.stringify(next)); }catch(e){}
+    }
+    function setCompactMode(isCompact){
+      document.body.classList.toggle("compact", !!isCompact);
+      viewToggle.setAttribute("aria-pressed", isCompact ? "true" : "false");
+      viewToggle.textContent = isCompact ? "Vista normal" : "Vista compacta";
+    }
+
+    /* ===== DATA ===== */
+    const DATA = {
+      karaoke: { price: 250 },
+
+      foods: {
+        title: "Alimentos",
+        subtitle: "Selección japonesa minimal & moderna",
+        categories: [
+          { key:"entradas", label:"Entradas" },
+          { key:"kaiseki", label:"Kaiseki" },
+          { key:"rollos", label:"Rollos" },
+          { key:"ramen", label:"Ramen" },
+          { key:"ensaladas", label:"Ensaladas" },
+          { key:"sashimis", label:"Sashimis" },
+          { key:"arroz", label:"Arroz" },
+          { key:"handrolls", label:"Handrolls" },
+          { key:"burgers", label:"Burgers & Sandos" },
+          { key:"postres", label:"Postres" }
+        ],
+        items: {
+          entradas: [
+            { name:"Kushiages de Queso", price:"$190", desc:"6 pz. Cubos de queso menonita empanizados, acompañados de catsup preparada." },
+            { name:"Camarones Roca", price:"$210", desc:"Camarones tempura bañados con salsa spicy, acompañados de mix de lechugas.", img:"" },
+            { name:"Mini Korean Dog", price:"$230", desc:"4 mini banderillas coreanas acompañadas de catsup y mayo jengibre." },
+            { name:"Edamames Spicy", price:"$120", desc:"Edamames salteados con salsa spicy de la casa, togarashi y limón amarillo. *Puedes pedirlos naturales." },
+            { name:"Korean BBQ Fries", price:"$180", desc:"Base de papas fritas, carne marinada, salsa BBQ, cebollín y ajonjolí." }
+          ],
+          kaiseki: [
+            { name:"Gyozas Sambal", price:"$180", desc:"5 pz. Gyozas sobre una salsa picosita sambal y corales de calamar." },
+            { name:"Sake Rolls", price:"$270", desc:"4 pz. Rollitos de arroz sushi, pasta Tampico y cebollín, envueltos en salmón y coronados con salsa de anguila y tobiko." },
+            { name:"Tacos de Salmón", price:"$190", desc:"4 tacos en hoja de lechuga: salmón marinado en miso, arroz de coliflor, mayo kosho." },
+            { name:"Spicy Bonzai", price:"$210", desc:"Brócoli al grill bañado en aceite de chiles, base de salsa jalapeño trufa y chile togarashi." },
+            { name:"Karaage Buffalo Fries", price:"$250", desc:"Papas fritas, pechuga de pollo marinada frita, salsa búfalo sambal y zanahoria." },
+            { name:"Omakase Sushi", price:"$549", desc:"Plato combinado de sushi. Selección del chef. Es una sorpresa.", img:"" }
+          ],
+          rollos: [
+            { name:"Crispy Roll", price:"$210", desc:"Por dentro: camarón tempura, pepino y aguacate. Por fuera: kanikama, chispas tempura y salsa de anguila." },
+            { name:"Katana Roll", price:"$220", desc:"Por dentro: camarón tempura, pepino y queso crema. Por fuera: pasta Tampico, salmón, aguacate, mayo spicy y tanuki.", img:"" },
+            { name:"Shiromi Roll", price:"$220", desc:"Por dentro: atún spicy, aguacate y pepino. Por fuera: hamachi y mayo jalapeño trufado." },
+            { name:"Akami Roca Roll", price:"$230", desc:"Por dentro: espárrago, pasta Tampico y pepino. Por fuera: akami, burbujas de tempura roca, salsa de anguila y cebollín." },
+            { name:"Tekka Roll", price:"$220", desc:"Por dentro: queso crema, chispas tempura y espárrago. Por fuera: atún sellado con aceite de chiles, mayo kosho, cebollín y soya rayu." },
+            { name:"Getta Roll", price:"$210", desc:"Por dentro: camarón tempura, queso crema y aguacate. Empanizado, pasta Tampico y salsa de anguila por fuera." }
+          ],
+          ramen: [
+            { name:"Daisuke Ramen", price:"$230", desc:"Fondo de res, carne marinada, cebolla frita, alga nori, 2 gyozas fritas y huevo marinado.", img:"" },
+            { name:"Tori Ramen", price:"$240", desc:"Fondo de miso, pechuga de pollo spicy, edamames, huevo marinado, cebolla frita, alga nori y cebollín." },
+            { name:"Chasu Ramen", price:"$250", desc:"Fondo tonkotsu, láminas de chasu, tocino frito, cebollín, alga nori y huevo marinado." }
+          ],
+          ensaladas: [
+            { name:"Sunomono Salad", price:"$190", desc:"Mix de lechuga, pepino persa, zanahoria, kanikama y vinagreta de ajonjolí." },
+            { name:"Sake Maracuyá Salad", price:"$210", desc:"Mix de lechuga, cubos de salmón, aguacate, vinagreta de maracuyá." }
+          ],
+          sashimis: [
+            { name:"Hamachi Trufado", price:"$250", desc:"Base de salsa jalapeño trufa, láminas de hamachi, cilantro, aceite de trufa y cebolla frita.", img:"" },
+            { name:"Sirashi Sashimi", price:"$250", desc:"Sashimi 3 variedades (atún, salmón y hamachi). Acompañado de salsa de soya trufada y cebollín." },
+            { name:"Gyu Tataki", price:"$270", desc:"Láminas de New York sellado, salsa ishiyaki, coles de Bruselas fritas y mayo yuzu." },
+            { name:"Salmón Natsu", price:"$245", desc:"Base de salsa maracuyá, aceite rayu, aguacate e ikura." }
+          ],
+          handrolls: [
+            { name:"Gunkan Spicy Salmon", price:"$110", desc:"Base de arroz tempura, salmón togarashi, aguacate, espárrago y chispas tempura." },
+            { name:"Umi Hamachi", price:"$125", desc:"Base de arroz tempura, hamachi trufado, cebolla frita, serrano, cilantro y aceite de trufa." },
+            { name:"Takusan Roll", price:"$100", desc:"Base de arroz tempura, pescado spicy, cebolla frita, mayo kosho, aguacate y rodajas de chile serrano." },
+            { name:"Unagi Amai", price:"$120", desc:"Base de crispy rice, aguacate, pepino, anguila, chispas tempura, salsa de anguila y ajonjolí dulce." },
+            { name:"Tuna Tartar", price:"$110", desc:"Base de arroz crispy, mayo kosho, espárrago, cebolla frita, atún spicy y salsa de anguila." },
+            { name:"Buta Amai", price:"$115", desc:"Base de arroz tempura, salsa BBQ, pork belly marinado, mix de zanahoria/pepino y ajonjolí dulce." },
+            { name:"Kani Crunch", price:"$100", desc:"Base de arroz crispy, kanikama spicy, salsa de anguila, chispas tempura, tobiko y cebollín." },
+            { name:"Agetta Ebi", price:"$110", desc:"Base de arroz crispy, mayo spicy, aguacate, camarón roca, espárrago y ajonjolí mix." }
+          ],
+          arroz: [
+            { name:"Yakimeshi Vegetales", price:"$160", desc:"Arroz frito con verduras, cebollín y ajonjolí. Extras: Camarón +$45 | Res +$40 | Pollo +$40." },
+            { name:"Gyu Don", price:"$210", desc:"Bowl de arroz gohan cubierto de láminas de New York, cebolla frita, salsa galbi y cebollín." },
+            { name:"Yakimeshi Pork Belly", price:"$210", desc:"Arroz frito, zanahoria, brócoli, coronado con pork belly y salsa de anguila." },
+            { name:"Bibimbap de New York", price:"$260", desc:"Bowl de arroz gohan con vegetales, coronado con láminas de New York BBQ, huevo, zanahoria y brócoli; salsa ligeramente picante." }
+          ],
+          burgers: [
+            { name:"Doble Bacon", price:"$215", desc:"Hamburguesa con doble queso, doble tocino y doble carne, acompañada de papas fritas." },
+            { name:"Pork Belly Burger", price:"$230", desc:"Pulled pork BBQ, ensalada de pepino y zanahoria encurtida, papa paja y cilantro fresco. Con papas fritas y catsup de la casa." },
+            { name:"Katsu Sando", price:"$185", desc:"Sándwich de lomo de cerdo empanizado, mayonesa japonesa, col morada y salsa tonkatsu. Con papas fritas." },
+            { name:"Gyu Sando", price:"$225", desc:"Sándwich de New York empanizado, mayonesa gochujang, cebolla frita, aguacate y cebollín. Con papas fritas.", img:"" }
+          ],
+          postres: [
+            { name:"Cheesecake Taro", price:"$210", desc:"Rebanada de cheesecake taro, cubierta de glaseado, perlas de taro y frutos rojos." },
+            { name:"Cheesecake Matcha Dubai", price:"$240", desc:"Cheesecake matcha, cubierta de chocolate y frutos rojos, coronado con kataifi y salsa de pistache matcha.", img:"" },
+            { name:"Biscoff Cheese Dumplings", price:"$190", desc:"5 pz. Gyozas rellenas de queso crema y crema Biscoff, sobre salsa de caramelo, galleta Lotus y frutos rojos." },
+            { name:"Oreo Tempura", price:"$200", desc:"Oreos tempura, helado de vainilla, frutos rojos y salsa de chocolate." }
+          ]
+        }
+      },
+
+      drinks: {
+        title: "Bebidas",
+        subtitle: "Destilados • Cócteles • Vinos • Cervezas",
+        categories: [
+          { key:"signature", label:"Signature" },
+          { key:"classic", label:"Classic Cocktails" },
+          { key:"spritz", label:"Spritz" },
+          { key:"digestivos", label:"Digestivos" },
+          { key:"mezcal", label:"Mezcal (Copa / Botella)" },
+          { key:"tequila", label:"Tequila (Copa / Botella)" },
+          { key:"whisky", label:"Whisky (Copa / Botella)" },
+          { key:"ron", label:"Ron (Copa / Botella)" },
+          { key:"gin", label:"Gin (Copa / Botella)" },
+          { key:"vodka", label:"Vodka (Copa / Botella)" },
+          { key:"vino", label:"Vino & Champagne" },
+          { key:"cervezasNac", label:"Cervezas Nacionales" },
+          { key:"cervezasPrem", label:"Cervezas Premium" },
+          { key:"importados", label:"Importados" },
+          { key:"fresh", label:"Sin Alcohol" },
+          { key:"extras", label:"Extras" }
+        ],
+        items: {
+          signature: [
+            { name:"San", price:"$190", desc:"400 Conejos, fresa, arándano, jamaica, rim, sal de jamaica y miel." },
+            { name:"Itachi", price:"$220", desc:"Vodka Tito's, zarzamora syrup, rim, trueno pop, top soda." },
+            { name:"Daisuke", price:"$190", desc:"Sake peach licor, arándano, menta y soda (fresh-sweet)." }
+          ],
+          classic: [
+            { name:"Negroni", price:"$240", desc:"Roku japonés, vermouth rosso y bitter italiano. Herbal, amargo, elegante." },
+            { name:"Martini Seco", price:"$170", desc:"Gin, vermouth blanco, aceituna." },
+            { name:"Old Fashioned", price:"$190", desc:"Bushmills 10 años, angostura, syrup, cereza." },
+            { name:"Espresso Martini", price:"$220", desc:"Tito's vodka, licor de café, espresso." }
+          ],
+          spritz: [
+            { name:"Sake Spritz", price:"$190", desc:"Sake infusión cítrica, Aperol, Cinzano Spritz." },
+            { name:"Aperol Spritz", price:"$220", desc:"Aperol, Cinzano Spritz, top soda." },
+            { name:"St Germain Spritz", price:"$260", desc:"St Germain, prosecco, soda mineral." },
+            { name:"Garden Spritz", price:"$220", desc:"Espumoso con naranja natural y especias. Fresco y cítrico." }
+          ],
+          digestivos: [
+            { name:"Carajillo", price:"$170", desc:"Licor 43, shot espresso." },
+            { name:"Carajillo Taro", price:"$190", desc:"Baileys, taro, toque cremoso." },
+            { name:"Zoro", price:"$190", desc:"Sake, matcha, mix coco, honey syrup, rim coco tostado." }
+          ],
+          mezcal: [
+            { name:"Creyente Cristalino (750 ml)", price:"$180 / $2,000" },
+            { name:"400 Conejos (700 ml)", price:"$170 / $1,900" },
+            { name:"Montelobos Joven (750 ml)", price:"$190 / $2,200" },
+            { name:"Ojo de Tigre (750 ml)", price:"$170 / $1,900" },
+            { name:"Mil Diablos (700 ml)", price:"$160 / $1,700" }
+          ],
+          tequila: [
+            { name:"Tradicional (695 ml)", price:"$140 / $1,400" },
+            { name:"Tradicional Cristalino (750 ml)", price:"$160 / $1,700" },
+            { name:"Espolón (750 ml)", price:"$160 / $1,700" },
+            { name:"Hornitos Cristalino (750 ml)", price:"$170 / $1,800" },
+            { name:"1800 Cristalino (700 ml)", price:"$210 / $2,600" },
+            { name:"Dobel Diamante Cristalino (700 ml)", price:"$190 / $2,400" },
+            { name:"Don Julio 70 (700 ml)", price:"$240 / $2,800" },
+            { name:"Don Julio Blanco (700 ml)", price:"$170 / $2,100" },
+            { name:"Maestro Reposado (700 ml)", price:"$180 / $2,000" },
+            { name:"Maestro Blanco (700 ml)", price:"$180 / $2,000" },
+            { name:"Dobel 50 (750 ml)", price:"-- / $8,500", desc:"Solo botella." }
+          ],
+          whisky: [
+            { name:"JW Black Label (750 ml)", price:"$230 / $2,500" },
+            { name:"Glenfiddich 12 Años (750 ml)", price:"$260 / $3,500" },
+            { name:"Macallan 12 Años (700 ml)", price:"$340 / $3,800" },
+            { name:"Jack Daniel's (700 ml)", price:"$170 / $1,800" },
+            { name:"Suntory Toki (750 ml)", price:"$220 / $2,500" },
+            { name:"Suntory Hibiki (750 ml)", price:"$230 / $6,500" },
+            { name:"Bushmills Single Malt (750 ml)", price:"$230 / $2,600" },
+            { name:"Buchanan's 12 (750 ml)", price:"$230 / $2,500" },
+            { name:"Buchanan's 18 (750 ml)", price:"$390 / $4,500" },
+            { name:"Jim Beam (750 ml)", price:"$170 / $1,400" }
+          ],
+          ron: [
+            { name:"Matusalem Clásico (750 ml)", price:"$160 / $1,500" },
+            { name:"Matusalem Gran Reserva (750 ml)", price:"$180 / $1,750" },
+            { name:"Bacardi Blanco (750 ml)", price:"$140 / $1,400" },
+            { name:"Capitán Morgan (700 ml)", price:"$140 / $1,400" },
+            { name:"Zacapa 23 (750 ml)", price:"$220 / $2,800" }
+          ],
+          gin: [
+            { name:"Hendrick's (750 ml)", price:"$240 / $2,800" },
+            { name:"Roku (750 ml)", price:"$190 / $2,200" },
+            { name:"Tanqueray (750 ml)", price:"$170 / $1,750" },
+            { name:"Bulldog (750 ml)", price:"$170 / $1,750" },
+            { name:"Armónico Gin (700 ml)", price:"$170 / $1,900" }
+          ],
+          vodka: [
+            { name:"Absolut (750 ml)", price:"$140 / $1,400" },
+            { name:"Tito's (750 ml)", price:"$160 / $1,600" },
+            { name:"Smirnoff Tamarindo (750 ml)", price:"$150 / $1,600" },
+            { name:"Grey Goose (700 ml)", price:"$230 / $2,700" }
+          ],
+          vino: [
+            { name:"Piñata de Juguete (750 ml)", price:"$295 / $1,400" },
+            { name:"El Velero de Juguete (750 ml)", price:"$295 / $1,400" },
+            { name:"El Avión de Juguete (750 ml)", price:"$295 / $1,400" },
+            { name:"Casa Madero 3V (750 ml)", price:"$340 / $1,500" },
+            { name:"Casa Madero 2V (750 ml)", price:"$240 / $1,100" },
+            { name:"Casa Madero V Rosado (750 ml)", price:"$240 / $1,100" },
+            { name:"Chandon Garden (750 ml)", price:"-- / $1,400", desc:"Solo botella." },
+            { name:"Moët & Chandon Brut (750 ml)", price:"-- / $3,500", desc:"Solo botella." }
+          ],
+          cervezasNac: [
+            { name:"Carta Blanca", price:"$60" },
+            { name:"TKT Light", price:"$60" },
+            { name:"TKT Roja", price:"$60" },
+            { name:"Indio", price:"$60" }
+          ],
+          cervezasPrem: [
+            { name:"XX Lager", price:"$70" },
+            { name:"XX Ámbar", price:"$70" },
+            { name:"Amstel Ultra", price:"$70" },
+            { name:"Bohemia Clara", price:"$80" },
+            { name:"Bohemia Oscura", price:"$80" },
+            { name:"Bohemia Cristal", price:"$80" },
+            { name:"Heineken Lager", price:"$80" },
+            { name:"Heineken 0.0", price:"$70" },
+            { name:"High Life Miller", price:"$80" }
+          ],
+          importados: [
+            { name:"Sapporo Premium", price:"$160" },
+            { name:"Echigo Koshihikari", price:"$180" },
+            { name:"Soju", price:"$290" }
+          ],
+          fresh: [
+            { name:"Refrescos", price:"$55" },
+            { name:"Agua Embotellada", price:"$50" },
+            { name:"Limonada Coldbrew", price:"$75" }
+          ],
+          extras: [
+            { name:"Vaso Chelado", price:"$35" },
+            { name:"Vaso Michelado", price:"$50" },
+            { name:"Clamato Preparado", price:"$60" },
+            { name:"Bandera", price:"$60" }
+          ]
+        }
+      }
+    };
+
+    function findCategoryLabel(mode, key){
+      const node = mode === "foods" ? DATA.foods : DATA.drinks;
+      const found = node.categories.find(c => c.key === key);
+      return found ? found.label : key;
+    }
+
+    /* ===== PROMO UI ===== */
+    function renderPromo(){
+      const p = getTodayPromo();
+
+      // Si no hay promo ese día (viernes o sábado), no renderizar nada
+      if(!p){
+        promoWrap.innerHTML = "";
+        return;
+      }
+
+      promoWrap.innerHTML = `
+        <div class="promoCard">
+          <div class="promoTop">
+            <div class="promoTag">Promo del día</div>
+            <div class="promoDay">${escapeHTML(p.dayLabel)}</div>
+          </div>
+          <div class="promoTitle">${escapeHTML(p.title)}</div>
+          <div class="promoText">${escapeHTML(p.text)}</div>
+          <div class="promoActions">
+            <button class="promoBtn" id="promoBtn" type="button">${escapeHTML(p.cta || "Ver")}</button>
+          </div>
+        </div>
+      `;
+
+      const promoBtn = document.getElementById("promoBtn");
+      promoBtn.addEventListener("click", () => {
+        haptic("soft");
+        track("promo_click", { key: String(p.ctaAction || "none") });
+
+        const action = String(p.ctaAction || "").trim();
+
+        if(action === "wa"){
+          const msg = `Hola Daisuke Karaoke, quiero reservar una sala. Vi la promo de ${p.dayLabel}: ${p.title}.`;
+          window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+          return;
+        }
+        if(action === "openFoods"){ btnFood.click(); return; }
+        if(action === "openDrinks"){ btnDrinks.click(); return; }
+
+        showToast("Listo ✨");
+      });
+    }
+
+    /* ===== SEARCH ===== */
+    function resetSearchUI(){
+      searchInput.value = "";
+      searchClear.classList.add("hidden");
+    }
+    function applySearch(){
+      const q = normalize(searchInput.value);
+      searchClear.classList.toggle("hidden", !q);
+
+      if(currentCategoryKey === "__best__"){
+        renderBestSellers(currentMode, currentTitle, q);
+        return;
+      }
+      renderItems(currentMode, currentCategoryKey, currentTitle, q);
+    }
+
+    /* ===== RENDER ===== */
+    function renderCategories(mode){
+      const node = mode === "foods" ? DATA.foods : DATA.drinks;
+
+      categoriesTitle.textContent = node.title;
+      categoriesSub.textContent = node.subtitle;
+
+      categoriesList.innerHTML = '<div class="list" id="catList"></div>';
+      const list = document.getElementById("catList");
+
+      node.categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "list-item";
+        btn.innerHTML = `
+          <div class="list-item__title">${escapeHTML(cat.label)}</div>
+          <div class="list-item__meta">Ver opciones</div>
+        `;
+        btn.addEventListener("click", () => {
+          haptic("light");
+          track("open_category", { key: `${mode}:${cat.key}` });
+
+          pushScreen("items", { mode, categoryKey: cat.key, title: cat.label });
+          renderItems(mode, cat.key, cat.label);
+        });
+        list.appendChild(btn);
+      });
+
+      setWhatsAppLink(WA_TEXT_DEFAULT);
+    }
+
+    function renderItems(mode, categoryKey, title, filterQuery=""){
+      currentMode = mode;
+      currentCategoryKey = categoryKey;
+      currentTitle = title;
+
+      const node = mode === "foods" ? DATA.foods : DATA.drinks;
+      const items = (node.items && node.items[categoryKey]) ? node.items[categoryKey] : [];
+
+      itemsTitle.textContent = title;
+      itemsSub.textContent = (mode === "foods") ? "Alimentos" : "Bebidas";
+      crumb.textContent = `${mode === "foods" ? "Alimentos" : "Bebidas"} / ${title}`;
+
+      if(filterQuery === "" && normalize(searchInput.value) !== "") filterQuery = normalize(searchInput.value);
+
+      let list = items;
+      const q = normalize(filterQuery);
+      if(q){
+        list = items.filter(it => normalize(it.name).includes(q) || normalize(it.desc).includes(q));
+      }
+
+      let html = "";
+      if(mode === "drinks" && ["mezcal","tequila","whisky","ron","gin","vodka"].includes(categoryKey)){
+        html += '<div class="hr-note">Formato: <b>Copa / Botella</b> (cuando aplique)</div>';
+      }
+      if(mode === "drinks" && categoryKey === "vino"){
+        html += '<div class="hr-note">Algunos vinos/champagne están disponibles solo por botella.</div>';
+      }
+
+      html += `<div id="itemsMount"></div>`;
+      itemsList.innerHTML = html;
+
+      const mount = document.getElementById("itemsMount");
+      if(q){
+        mount.insertAdjacentHTML("beforebegin", `<div class="hr-note">Resultados para: <b>${escapeHTML(searchInput.value)}</b> (${list.length})</div>`);
+      }
+
+      list.forEach((it, idx) => {
+        const best = isBestSeller(it.name);
+        const hasImg = !!it.img;
+
+        const row = document.createElement("div");
+        row.className = "product";
+        row.setAttribute("role", "button");
+        row.setAttribute("tabindex", "0");
+
+        row.innerHTML = `
+          <div class="product-row">
+            <div class="product-left">
+              <div class="thumb" style="${hasImg ? "" : "opacity:.55"}">
+                ${hasImg ? `<img src="${escapeHTML(it.img)}" alt="${escapeHTML(it.name)}" loading="lazy">` : ``}
+              </div>
+
+              <div class="product-text">
+                <div class="product-name">
+                  <span>${escapeHTML(it.name)}</span>
+                  ${best ? starIconHTML() : ""}
+                </div>
+                ${it.desc ? `<div class="product-desc">${escapeHTML(it.desc)}</div>` : ``}
+              </div>
+            </div>
+
+            <div class="product-price">${escapeHTML(it.price || "")}</div>
+          </div>
+        `;
+
+        row.addEventListener("click", () => {
+          haptic("soft");
+          track("open_item", { key: `${mode}:${categoryKey}:${idx}` });
+          openModal({ ...it, best, section: title });
+        });
+
+        row.addEventListener("keydown", (e) => {
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            row.click();
+          }
+        });
+
+        mount.appendChild(row);
+      });
+
+      itemsList.insertAdjacentHTML("beforeend", `<div class="badge">🎤 Karaoke: $${DATA.karaoke.price} por persona • 2 horas</div>`);
+      setWhatsAppLink(`Hola Daisuke Karaoke, quiero reservar una sala. Estoy viendo: ${title}.`);
+
+      if(list.length === 0){
+        itemsList.insertAdjacentHTML("afterbegin", `<div class="hr-note">No encontramos resultados. Intenta otra búsqueda.</div>`);
+      }
+    }
+
+    function renderBestSellers(mode, title, filterQuery=""){
+      currentMode = mode;
+      currentCategoryKey = "__best__";
+      currentTitle = title;
+
+      itemsTitle.textContent = title;
+      itemsSub.textContent = (mode === "foods") ? "Alimentos" : "Bebidas";
+      crumb.textContent = `${mode === "foods" ? "Alimentos" : "Bebidas"} / ${title}`;
+
+      const node = mode === "foods" ? DATA.foods : DATA.drinks;
+
+      let flat = [];
+      Object.keys(node.items).forEach(k => {
+        node.items[k].forEach(it => {
+          if(isBestSeller(it.name)) flat.push({ ...it, section: findCategoryLabel(mode, k), best:true });
+        });
+      });
+
+      const q = normalize(filterQuery || searchInput.value);
+      if(q){
+        flat = flat.filter(it => normalize(it.name).includes(q) || normalize(it.desc).includes(q));
+      }
+
+      itemsList.innerHTML = `<div id="itemsMount"></div>`;
+      const mount = document.getElementById("itemsMount");
+
+      if(q){
+        mount.insertAdjacentHTML("beforebegin", `<div class="hr-note">Resultados para: <b>${escapeHTML(searchInput.value)}</b> (${flat.length})</div>`);
+      }else{
+        mount.insertAdjacentHTML("beforebegin", `<div class="hr-note">Selección marcada como <b>Más pedido</b> ⭐</div>`);
+      }
+
+      flat.forEach((it, idx) => {
+        const hasImg = !!it.img;
+
+        const row = document.createElement("div");
+        row.className = "product";
+        row.setAttribute("role", "button");
+        row.setAttribute("tabindex", "0");
+
+        row.innerHTML = `
+          <div class="product-row">
+            <div class="product-left">
+              <div class="thumb" style="${hasImg ? "" : "opacity:.55"}">
+                ${hasImg ? `<img src="${escapeHTML(it.img)}" alt="${escapeHTML(it.name)}" loading="lazy">` : ``}
+              </div>
+
+              <div class="product-text">
+                <div class="product-name">
+                  <span>${escapeHTML(it.name)}</span>
+                  ${starIconHTML()}
+                </div>
+                ${it.desc ? `<div class="product-desc">${escapeHTML(it.desc)}</div>` : ``}
+              </div>
+            </div>
+
+            <div class="product-price">${escapeHTML(it.price || "")}</div>
+          </div>
+        `;
+
+        row.addEventListener("click", () => {
+          haptic("soft");
+          track("open_item_best", { key: `${mode}:${idx}` });
+          openModal({ ...it, best:true, section: it.section });
+        });
+
+        mount.appendChild(row);
+      });
+
+      itemsList.insertAdjacentHTML("beforeend", `<div class="badge">🎤 Karaoke: $${DATA.karaoke.price} por persona • 2 horas</div>`);
+      setWhatsAppLink(`Hola Daisuke Karaoke, quiero reservar una sala. Estoy viendo: ${title}.`);
+
+      if(flat.length === 0){
+        itemsList.insertAdjacentHTML("afterbegin", `<div class="hr-note">No encontramos resultados en Más pedidos.</div>`);
+      }
+    }
+
+    /* ===== MODAL ===== */
+    function openModal(item){
+      modalTop.querySelectorAll("img").forEach(n => n.remove());
+      if(item.img){
+        const img = document.createElement("img");
+        img.src = item.img;
+        img.alt = item.name || "Imagen";
+        img.loading = "lazy";
+        modalTop.appendChild(img);
+      }
+
+      modalName.innerHTML = `<span>${escapeHTML(item.name || "")}</span>${item.best ? starIconHTML() : ""}`;
+      modalPrice.textContent = item.price || "";
+      modalDesc.textContent = item.desc || "";
+
+      modalBadges.innerHTML = "";
+      if(item.best){
+        modalBadges.insertAdjacentHTML("beforeend", `
+          <span class="chip chip--best">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 17.3l-6.18 3.65 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63 7.19.61-5.46 4.68 1.64 7.03z"></path>
+            </svg>
+            MÁS PEDIDO
+          </span>
+        `);
+      }
+      if(item.section){
+        modalBadges.insertAdjacentHTML("beforeend", `<span class="chip">${escapeHTML(item.section)}</span>`);
+      }
+      modalBadges.insertAdjacentHTML("beforeend", `<span class="chip">🎤 Karaoke $${DATA.karaoke.price} • 2 hrs</span>`);
+
+      const msg = `Hola Daisuke Karaoke, quiero reservar una sala. Me interesa: ${item.name}.`;
+      modalWA.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      showToast("Detalle abierto ✨");
+    }
+
+    function closeModal(){
+      modal.classList.add("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    /* ===== Actions ===== */
+    function showKaraoke(){
+      haptic("soft");
+      track("open_karaoke");
+      const msg = "Hola Daisuke Karaoke, quiero reservar una sala.";
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+    }
+
+    /* ===== EVENTS ===== */
+    enterBtn.addEventListener("click", () => {
+      haptic("light");
+      track("enter_menu");
+      hero.classList.add("hidden");
+      app.classList.remove("hidden");
+      waBtn.classList.remove("hidden");
+      navStack = [];
+      pushScreen("home", {});
+      setWhatsAppLink(WA_TEXT_DEFAULT);
+      renderPromo();
+    });
+
+    backBtn.addEventListener("click", () => {
+      haptic("light");
+      popScreen();
+      if(navStack.length && navStack[navStack.length - 1].name !== "items"){
+        resetSearchUI();
+      }
+    });
+
+    btnFood.addEventListener("click", () => {
+      haptic("light");
+      track("open_section", { key: "foods" });
+      pushScreen("categories", { mode:"foods" });
+      renderCategories("foods");
+      resetSearchUI();
+    });
+
+    btnDrinks.addEventListener("click", () => {
+      haptic("light");
+      track("open_section", { key: "drinks" });
+      pushScreen("categories", { mode:"drinks" });
+      renderCategories("drinks");
+      resetSearchUI();
+    });
+
+    btnKaraoke.addEventListener("click", showKaraoke);
+
+    searchInput.addEventListener("input", () => {
+      track("search_input", { key: currentMode ? `${currentMode}:${currentCategoryKey}` : "none" });
+      applySearch();
+    });
+
+    searchClear.addEventListener("click", () => {
+      haptic("light");
+      resetSearchUI();
+      applySearch();
+      showToast("Búsqueda limpia");
+    });
+
+    viewToggle.addEventListener("click", () => {
+      haptic("light");
+      const ui = loadUIState();
+      const next = !ui.compact;
+      ui.compact = next;
+      saveUIState(ui);
+      setCompactMode(next);
+      showToast(next ? "Vista compacta" : "Vista normal");
+      track("toggle_compact", { key: String(next) });
+    });
+
+    modalClose.addEventListener("click", () => { haptic("light"); closeModal(); });
+    modalBack.addEventListener("click", () => { haptic("light"); closeModal(); });
+    modal.addEventListener("click", (e) => { if(e.target === modal){ haptic("light"); closeModal(); } });
+    document.addEventListener("keydown", (e) => { if(e.key === "Escape" && !modal.classList.contains("hidden")) closeModal(); });
+
+    /* INIT */
+    (function init(){
+      applyDayTheme(); // ✅ day glow + header line
+
+      waBtn.classList.add("hidden");
+      setWhatsAppLink(WA_TEXT_DEFAULT);
+
+      const ui = loadUIState();
+      setCompactMode(!!ui.compact);
+    })();
+  </script>
+</body>
+</html>
